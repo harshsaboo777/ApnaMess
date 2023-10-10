@@ -15,7 +15,7 @@ function AllMess() {
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
               Reiciendis vitae qui distinctio ex soluta? Voluptates, ea! Esse,
               natus. Quas possimus laboriosam consectetur deserunt ea sapiente.
-              Dicta ipsam atque voluptatem provident!
+              Dicta ipsam atque voluptatem !
             </p>
             <a
               href=""
