@@ -71,8 +71,8 @@ const SignUp = () => {
                 required
               />
             </div>
-            <div className={styles.inputgroup}>
-              <input
+            <div className={ styles.inputgroup} >
+              <input className="signupinputs"
                 type="text"
                 placeholder="Last Name"
                 name="Lname"

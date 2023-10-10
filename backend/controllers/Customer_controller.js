@@ -12,19 +12,37 @@ export const View_mess = async (req, res) => {
     res.status(200).send(exists.rows);
   };
 
+  export const View_subscribed_mess = async (req, res) => {
+
+    const {customer_id} = req.body;
+    let exists;
+    console.log(customer_id);
+    try {
+      exists = await client.query("select mess.mess_name,Subscription.mess_id,Subscription.daily_tokens,Subscription.remaining_token,Subscription.subscription_validity from Subscription inner join mess on subscription.mess_id=mess.mess_id where customer_id=$1 ",
+      [customer_id]);
+    } catch (err) {
+      console.log(err);
+    }
+    console.log(exists.rows);
+    res.status(200).send(exists.rows);
+  };
+
+
 
   export const Subscribe_mess = async (req, res) => {
-    const { customer_id, Mess_id, Remaining_tokens,subscription_validity} = req.body;
+    const { customer_id, Mess_id, Remaining_token,subscription_validity} = req.body;
     // INSERT INTO TableName (DateColumn) VALUES (CURRENT_DATE);
+
     let exists;
+
     try {
-      exists = await client.query("INSERT INTO Subscription(customer_id,Mess_id,Remaining_tokens,subscription_validity,Daily_tokens,Subscription_date) VALUES($1,$2,$3,$4,1,CURRENT_DATE);", [
-        customer_id, Mess_id, Remaining_tokens,subscription_validity
+      exists = await client.query("INSERT INTO Subscription(customer_id,Mess_id,Remaining_token,subscription_validity,Daily_tokens,Subscription_date) VALUES($1,$2,$3,$4,1,CURRENT_DATE);", [
+        customer_id, Mess_id, Remaining_token,subscription_validity
       ]);
     } catch (err) {
       console.log(err);
     }
-    // console.log(exists.rows);
+    console.log(exists.rows);
     res.status(200).send("Successfully Subscribed!");
   };
   
@@ -51,16 +69,31 @@ export const View_mess = async (req, res) => {
   export const Change_daily_tokens = async (req, res) => {
     const { customer_id,Mess_id,Daily_tokens} = req.body;
     let exists;
-    try {
-      exists = await client.query("UPDATE Subscription SET Daily_tokens=$3 where customer_id=$1 and Mess_id=$2",
+
+    try
+    {
+      exists = await client.query("Select * from Subscription where customer_id=$1 and Mess_id=$2",
       [
-        customer_id,Mess_id,Daily_tokens
-      ]);
-    } catch (err) {
+        customer_id,Mess_id
+      ])
+      // console.log(exists.rows[0].remaining_token);
+      if(exists.rows[0].remaining_token < Daily_tokens)
+      {
+        res.status(400).send("Inadequate amount of Tokens left")
+      }
+      else
+      {
+        exists = await client.query("UPDATE Subscription SET Daily_tokens=$3 where customer_id=$1 and Mess_id=$2",
+        [
+          customer_id,Mess_id,Daily_tokens
+        ]);
+        res.status(200).send("Successfully Updated Daily Tokens!");
+      }
+
+    }catch(err)
+    {
       console.log(err);
     }
-    // console.log(exists.rows);
-    res.status(200).send("Successfully Updated Daily Tokens!");
   };
 
   export const Rate_Mess = async(req,res) => {
@@ -90,6 +123,17 @@ export const View_mess = async (req, res) => {
           } catch (err) {
             console.log(err);
           }
+    }
+    res.status(200).send("Successfully Rated");
+  }
+
+  export const View_mess_rating = async(req,res) => {
+    
+    let exists;
+    try {
+      exists = await client.query("Select mess_id,avg(rating) from Ratings group by mess_id");
+    } catch (err) {
+      console.log(err);
     }
     res.status(200).send("Successfully Rated");
   }

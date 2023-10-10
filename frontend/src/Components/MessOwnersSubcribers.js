@@ -1,80 +1,54 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import axios from "axios";
+import MessOwnerDeductTokens from "./MessOwnerDeductTokens";
 
 export default function MessOwnersSubcribers() {
-  const [users, update_users] = useState([
-    {
-      name: "Harsh Saboo",
-      address: "46, Sethi Nagar, Khandwa",
-      contact: "9874545412",
-    },
-    {
-      name: "Harsh Saboo",
-      address: "46, Sethi Nagar, Khandwa",
-      contact: "9874545412",
-    },
-    {
-      name: "Harsh Saboo",
-      address: "46, Sethi Nagar, Khandwa",
-      contact: "9874545412",
-    },
-    {
-      name: "Harsh Saboo",
-      address: "46, Sethi Nagar, Khandwa",
-      contact: "9874545412",
-    },
-    {
-      name: "Harsh Saboo",
-      address: "46, Sethi Nagar, Khandwa",
-      contact: "9874545412",
-    },
-    {
-      name: "Harsh Saboo",
-      address: "46, Sethi Nagar, Khandwa",
-      contact: "9874545412",
-    },
-    {
-      name: "Harsh Saboo",
-      address: "46, Sethi Nagar, Khandwa",
-      contact: "9874545412",
-    },
-    {
-      name: "Harsh Saboo",
-      address: "46, Sethi Nagar, Khandwa",
-      contact: "9874545412",
-    },
-    {
-      name: "Harsh Saboo",
-      address: "46, Sethi Nagar, Khandwa",
-      contact: "9874545412",
-    },
-    {
-      name: "Harsh Saboo",
-      address: "46, Sethi Nagar, Khandwa",
-      contact: "9874545412",
-    },
-  ]);
+  const [mess_users, update_mess_users] = useState([]);
+  const [total_tokens,set_total_tokens] = useState(0);
+
+  const fetch_mess_users = async (e) => {
+    await 
+    axios
+      .post("http://localhost:5000/Mess_owner/View_mess_users/",
+      {
+        "Mess_id":1
+      })
+      .then((res) => {
+        update_mess_users(res.data);
+      });
+  };
+
+  const fetch_total_tokens = async (e) => {
+    await 
+    axios
+      .post("http://localhost:5000/Mess_owner/fetch_total_tokens/",
+      {
+        "Mess_id":1
+      })
+      .then((res) => {
+        console.log(res.data[0].sum);
+        set_total_tokens(res.data[0].sum);
+      });
+  };
+
+  useEffect(() => {
+		fetch_mess_users();
+    fetch_total_tokens();
+	}, []);
+
 
   return (
     <div class="mx-auto">
+      
       <div class="flex flex-col">
         <div class="overflow-x-auto shadow-md sm:-lg">
           <div class="inline-block min-w-full align-middle">
             <div class="overflow-hidden ">
-              <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
-                <thead class="bg-gray-100 dark:bg-gray-700">
+              <table class="min-w-full divide-y divide-cyan-200 table-fixed dark:divide-gray-700">
+                <thead class="bg-cyan-100 dark:bg-cyan-700">
                   <tr>
                     <th scope="col" class="p-4">
-                      {/* <div class="flex items-center">
-                        <input
-                          id="checkbox-all"
-                          type="checkbox"
-                          class="w-4 h-4 text-blue-600 bg-gray-100  border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        />
-                        <label for="checkbox-all" class="sr-only">
-                          checkbox
-                        </label>
-                      </div> */}
                     </th>
                     <th
                       scope="col"
@@ -94,41 +68,40 @@ export default function MessOwnersSubcribers() {
                     >
                       Contact Number
                     </th>
+                    <th
+                      scope="col"
+                      class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
+                    >
+                      Daily_tokens
+                    </th>
                     <th scope="col" class="p-4">
                       <span class="sr-only">Details</span>
                     </th>
                   </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                  {users.map((ele) => (
-                    <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                <tbody class="bg-cyan-200 divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                  {mess_users.map((ele) => (
+                    <tr class="hover:bg-cyan-100 dark:hover:bg-cyan-700">
                       <td class="p-4 w-4">
-                        {/* <div class="flex items-center">
-                          <input
-                            id="checkbox-table-1"
-                            type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100  border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label for="checkbox-table-1" class="sr-only">
-                            checkbox
-                          </label>
-                        </div> */}
                       </td>
                       <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {ele.name}
-                      </td>
-                      <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">
-                        {ele.address}
+                        {ele.fname } {ele.lname}
                       </td>
                       <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        +91 {ele.contact}
+                        {ele.user_address}
                       </td>
-                      <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                      <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        +91 {ele.phone_num}
+                      </td>
+                      <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {ele.daily_tokens }
+                      </td>
+                      <td class="py-4 px-6 mx-10 text-sm font-medium text-right whitespace-nowrap">
                         <a
                           href="#"
                           class="text-blue-600 dark:text-blue-500 hover:underline"
                         >
-                          Details
+                          details
                         </a>
                       </td>
                     </tr>
@@ -138,6 +111,7 @@ export default function MessOwnersSubcribers() {
             </div>
           </div>
         </div>
+        <MessOwnerDeductTokens total_tokens={total_tokens} mess_id={1}/>
       </div>
 
       <p class="mt-5">

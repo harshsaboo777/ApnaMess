@@ -1,41 +1,92 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import Cookies from "universal-cookie";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Dialog,
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Input,
+  Textarea,
 } from "@material-tailwind/react";
- 
-export default function UpdateDailyTokens() {
+
+export default function UpdateDailyTokens(props) {
   const [open, setOpen] = React.useState(false);
- 
+  const navigate = useNavigate();
   const handleOpen = () => setOpen(!open);
- 
+  const [Tokens,UpdateTokens] = useState(0);
+
+  const handleChange = (e)=>{
+    const {value} = e.target;
+    UpdateTokens(value);
+    // console.log(Tokens);
+  }
+
+  const cookies = new Cookies();
+  const {mess_id} = props;
+  const User_id = cookies.get("User").User_id;
+
+  const handleSubmit = (props)=>{
+
+    axios
+        .post("http://localhost:5000/Customer/Change_daily_tokens",
+        {
+          "customer_id" : User_id,
+          "Mess_id": mess_id,
+          "Daily_tokens":Tokens
+        })
+        .then((res) => {
+          alert("Successfully Updated Daily Tokens!");
+          window.location.reload(); 
+        })
+        .catch((err) => {
+          alert("Inadequate amount of Tokens left");
+          window.location.reload(); 
+        });
+  }
+
   return (
     <>
-      <Button onClick={handleOpen} variant="gradient">
-        Open Dialog
-      </Button>
+      <Button
+      className="ml-3 text-xl inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray rounded-lg bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-cyan-900"
+      onClick={handleOpen}>Update Daily Tokens</Button>
       <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Its a simple dialog.</DialogHeader>
-        <DialogBody divider>
-          The key to more success is to have a lot of pillows. Put it this way,
-          it took me twenty five years to get these plants, twenty five years of
-          blood sweat and tears, and I&apos;m never giving up, I&apos;m just
-          getting started. I&apos;m up to something. Fan luv.
-        </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
+        <div className="bg-cyan-100 flex items-center justify-between">
+          <DialogHeader>Update Daily Tokens</DialogHeader>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="mr-3 h-5 w-5"
             onClick={handleOpen}
-            className="mr-1"
           >
-            <span>Cancel</span>
+            <path
+              fillRule="evenodd"
+              d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+        <DialogBody divider className="bg-cyan-50">
+          <div className="bg-cyan-100 grid gap-6">
+            <Input label="Enter Daily Tokens" type="number"
+            
+                name="Tokens"
+                value={Tokens}
+                onChange={handleChange}
+                // required
+            />
+
+          </div>
+        </DialogBody>
+        <DialogFooter className="bg-cyan-100 space-x-2">
+          <Button variant="outlined" color="red" onClick={handleOpen}>
+            close
           </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen}>
-            <span>Confirm</span>
+          <Button variant="gradient" color="green" onClick={handleSubmit}>
+            Update
           </Button>
         </DialogFooter>
       </Dialog>

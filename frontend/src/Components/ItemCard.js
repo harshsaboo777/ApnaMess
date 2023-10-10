@@ -3,22 +3,23 @@ import "../ComponentStyles/itemCard.css";
 import { useNavigate } from "react-router-dom";
 
 function ItemCard(props) {
-  const { name, description, image, price, rating } = props;
+  const { name, description, image, price, rating, mess_id } = props;
 
   const navigate = useNavigate();
   const Navigate_SubscribeMessPage = ()=>{
-    navigate("/subscribeMessPage");
+    // navigate("/subscribeMessPage");
+    navigate("/subscribeMessPage", { replace: true, state: {mess_id,price,name} });
   }
 
   return (
 
-    <div className="bg-white dark:bg-gray-800 my-8 card_margin">
+    <div className="bg-cyan-100 dark:bg-gray-800 my-8 card_margin">
       <div className="grid max-w-screen-xl px-4 mx-auto lg:gap-8 xl:gap-0 lg:grid-cols-12">
         <div className="mr-auto place-self-center lg:col-span-7">
           <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
             {name}
           </h1>
-          <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-2xl dark:text-gray-400">
+          <p className="max-w-2xl mb-6 font-light text-black lg:mb-8 md:text-lg lg:text-2xl dark:text-gray-400">
             {description}
           </p>
           <div></div>
@@ -28,13 +29,13 @@ function ItemCard(props) {
           </h1>
           <button
             onClick={Navigate_SubscribeMessPage}
-            className="lg:text-2xl inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+            className="bg-cyan-600 lg:text-2xl inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 rounded-lg focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
           >
             Subscribe
           </button>
           <a
             href="#"
-            class="ml-3 text-xl inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+            class="ml-3 text-xl inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray rounded-lg bg-blue-800  hover:bg-blue-800 focus:ring-4 dark:focus:ring-blue-900"
           >
             Contact
           </a>

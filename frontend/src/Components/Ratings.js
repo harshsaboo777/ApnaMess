@@ -22,8 +22,8 @@ const Ratings = (props) => {
 							<FaStar
 								color={
 									givenRating < rate || givenRating === rate
-										? "yellow"
-										: "rgb(192,192,192)"
+										? "gold"
+										: "white"
 								}
 							/>
 						</Rating>

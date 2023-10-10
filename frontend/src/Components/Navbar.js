@@ -46,7 +46,7 @@ function Navbar() {
     <div>
       <div class="flex flex-wrap place-items-center">
         <section class="relative mx-auto">
-          <nav class="flex justify-between bg-gray-800 text-white w-screen">
+          <nav class="flex justify-between bg-cyan-800 text-white w-screen">
             <div class="px-5 xl:px-12 py-6 flex w-full items-center">
               {/* <!-- Nav Links --> */}
               <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-10">
