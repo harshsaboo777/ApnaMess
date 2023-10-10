@@ -112,6 +112,13 @@
   margin-bottom: 25px;
 }
 
+
+input::placeholder {
+  opacity: 0.5;
+  color: black;
+}
+
+
 .container .loginemail .inputgroup input:focus,
 .container .login-email .input-group input:valid {
   border-color: #a29bfe;

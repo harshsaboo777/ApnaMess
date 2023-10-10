@@ -5,7 +5,7 @@ function Profile() {
     return (
         <div >
             <Navbar/>
-            <div className="bg-gray-100 dark:bg-gray-700 ">
+            <div className="bg-cyan-300 dark:bg-gray-700 ">
                 <div class="images">
                         <img src="../images/img.jpeg"/>
                 </div>

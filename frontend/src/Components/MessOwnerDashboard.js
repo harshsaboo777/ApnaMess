@@ -2,13 +2,11 @@ import React from "react";
 import Footer from "./Footer";
 import MessHeading from "./MessHeading";
 import MessOwnersSubcribers from "../Components/MessOwnersSubcribers";
-import MessOwnerDeductTokens from "./MessOwnerDeductTokens";
 
 function MessOwnerDashboard() {
   return (
-    <div>
+    <div className="bg-cyan-600">
       <MessHeading />
-      <MessOwnerDeductTokens/>
       <MessOwnersSubcribers />
       <Footer />
     </div>
