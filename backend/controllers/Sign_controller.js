@@ -19,8 +19,15 @@ export const createUser = async (req, res) => {
       newUser = await client.query(
         "INSERT INTO Users(Fname, Lname, Phone_num, Email, Password, User_address, User_type) VALUES ($1,$2,$3,$4,$5,$6,$7);",
         [Fname, Lname, Phone_num, Email, Password, User_address, User_type]
-      );
-      res.status(200).send("User has been created");
+      )
+
+      newUser = await client.query("select * from Users where Email=$1 and Password=$2;",
+      [
+        Email,
+        Password
+      ])
+      console.log(newUser.rows[0]);
+      res.status(200).send(newUser.rows[0]);
     } catch (err) {
       console.log(err);
     }

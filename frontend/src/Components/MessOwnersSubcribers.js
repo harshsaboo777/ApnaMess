@@ -2,17 +2,34 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
 import MessOwnerDeductTokens from "./MessOwnerDeductTokens";
+import Cookies from "universal-cookie"
 
 export default function MessOwnersSubcribers() {
   const [mess_users, update_mess_users] = useState([]);
   const [total_tokens,set_total_tokens] = useState(0);
+  const [Mess_id,update_Mess_id] = useState(0);
+  const cookies = new Cookies();
+  const User_id = cookies.get("User").User_id;
+
+  const fetch_mess_id = async (e) => {
+    await 
+    axios
+      .post("http://localhost:5000/Mess_owner/fetch_mess_id/",
+      {
+        "User_id":User_id
+      })
+      .then((res) => {
+        update_Mess_id(res.data.mess_id);
+        console.log(res.data.mess_id);
+      });
+  };
 
   const fetch_mess_users = async (e) => {
     await 
     axios
       .post("http://localhost:5000/Mess_owner/View_mess_users/",
       {
-        "Mess_id":1
+        "Mess_id":Mess_id
       })
       .then((res) => {
         update_mess_users(res.data);
@@ -24,7 +41,7 @@ export default function MessOwnersSubcribers() {
     axios
       .post("http://localhost:5000/Mess_owner/fetch_total_tokens/",
       {
-        "Mess_id":1
+        "Mess_id":Mess_id
       })
       .then((res) => {
         console.log(res.data[0].sum);
@@ -33,9 +50,13 @@ export default function MessOwnersSubcribers() {
   };
 
   useEffect(() => {
-		fetch_mess_users();
-    fetch_total_tokens();
+    fetch_mess_id();
 	}, []);
+
+  useEffect(()=>{
+    fetch_mess_users();
+    fetch_total_tokens();
+  },[Mess_id]);
 
 
   return (
