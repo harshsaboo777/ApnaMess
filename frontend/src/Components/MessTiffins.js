@@ -5,21 +5,7 @@ import MessHeading from "./MessHeading";
 import Footer from "./Footer";
 import "../ComponentStyles/messTiffins.css";
 
-// const tiffin = [
-//   {
-//     name: "Healthy Plate",
-//     description:
-//       "Meal includes Khichdi, kadi, papad, raaita along with some potato chips",
-//     image:
-//       "https://pluspng.com/img-png/veg-thali-png-exotic-tastes-of-india-from-thali-to-tandoori-484.png",
-//     price: 3150,
-//     rating: 4,
-//   },
-// ];
-
 function MessTiffins() {
-
-  // // User_id Fname Lname  User_type
 
   const [tiffin, set_tiffin] = useState([]);
 
@@ -45,7 +31,7 @@ function MessTiffins() {
           mess_id={ele.mess_id}
           name={ele.mess_name}
           description={ele.tiffin_details}
-          image={ele.tiffin_pic}
+          image={"https://pluspng.com/img-png/veg-thali-png-exotic-tastes-of-india-from-thali-to-tandoori-484.png"}
           price={ele.subscription_price}
           rating={ele.rating}
         />

@@ -4,11 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import MessOwnerDeductTokens from './Components/MessOwnerDeductTokens';
+import MessRegistration from './Components/MessRegistration';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+     <App /> 
     {/* <MessOwnerDeductTokens/> */}
   </React.StrictMode>
 );

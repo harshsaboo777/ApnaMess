@@ -3,6 +3,7 @@ import styles from "../ComponentStyles/SignUp.module.css";
 // import Button from "@mui/material/Button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 const SignUp = () => {
   const navigate = useNavigate();
   const [user, setuser] = useState({
@@ -40,13 +41,21 @@ const SignUp = () => {
       user.Password !== ""&& 
       user.User_type !== ""
     ) {
-      console.log(user);
+      // console.log(user);
       e.preventDefault();
       axios
         .post("http://localhost:5000/auth/signUp", user)
         .then((res) => {
+          // console.log(res.data);
           alert(res.data);
-          navigate("/login");
+
+          if(user.User_type==3)
+          {
+            const user_id = res.data.user_id;
+            // console.log(user_id);
+            navigate("/MessRegistration", { replace: true, state: {user_id} });
+          }
+          else{navigate("/login");}
         })
         .catch((err) => {
           alert("Email Already in use");
