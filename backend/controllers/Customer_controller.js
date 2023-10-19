@@ -18,7 +18,7 @@ export const View_mess = async (req, res) => {
     let exists;
     console.log(customer_id);
     try {
-      exists = await client.query("select mess.mess_name,Subscription.mess_id,Subscription.daily_tokens,Subscription.remaining_token,Subscription.subscription_validity from Subscription inner join mess on subscription.mess_id=mess.mess_id where customer_id=$1 ",
+      exists = await client.query("select mess.status,mess.mess_name,Subscription.mess_id,Subscription.daily_tokens,Subscription.remaining_token,Subscription.subscription_validity from Subscription inner join mess on subscription.mess_id=mess.mess_id where customer_id=$1 ",
       [customer_id]);
     } catch (err) {
       console.log(err);

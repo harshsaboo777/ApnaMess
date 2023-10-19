@@ -1,49 +1,28 @@
 import React from "react";
 import "../ComponentStyles/itemCard.css";
+import "../ComponentStyles/itemCard2.css"
 import Ratings from "./Ratings"
 import UpdateDailyTokens from "./UpdateDailyTokens";
 
 function ItemCard2(props) {
-  const { name, rating, daily_tokens,remaining_token,mess_id,validity} = props;
+  const { name, rating, daily_tokens,remaining_token,mess_id,validity,status,image} = props;
 
   return (
-    <div className="bg-cyan-100 my-8 card_margin">
-      <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:grid-cols-12">
-        <div className="mr-auto place-self-center lg:col-span-7">
-          <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-4xl xl:text-5xl dark:text-cyan-800">
-            {name}
-          </h1>
-          <div className="flex">
-          <p className=" lg:text-2xl inline-flex items-center justify-center  py-3 text-base font-medium text-center text-gray-900 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-          Daily Tokens : {daily_tokens}
-          </p>
-          
-          <UpdateDailyTokens
-          mess_id={mess_id}
-          />
-          <a
-            className="ml-3 text-xl inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray rounded-lg bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-cyan-900"
-          >
-            Contact
-          </a>
-          </div>
+    <div className="bg-cyan-50 border border-gray-100 transition transform duration-700 hover:shadow-xl hover:scale-105 p-4 rounded-lg relative">
+            <span className={(status===0?"itemcard2_background ":"itemcard2_background2 ")+" rounded-full text-primary text-sm poppins px-4 py-1 inline-block mb-4 "}>{status===1?"Open":"Currently Unavailable"}</span>
+            <img className="w-64 mx-auto transform transition duration-300 hover:scale-105" src={image} alt="" />
+            <div className="flex flex-col items-center my-3 space-y-2">
+                <h1 className="text-gray-900 poppins text-2xl font-bold">{name}</h1>
+                <Ratings  rats={rating}/>
+                <p className="text-gray-500 poppins text-sm text-center">Remaining tokens: {remaining_token}</p>
+                <h2 className="text-gray-900 poppins text-xl ">Daily Tokens : {daily_tokens}</h2>
+
+                <UpdateDailyTokens mess_id={mess_id}/>
+                <a
+            className="ml-3 text-xl inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray rounded-lg bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-cyan-900">Contact  </a>
+            </div>
 
         </div>
-        <div className="hidden lg:mt-0 lg:col-span-5 lg:flex rounded-lg">
-
-        <div>
-        <p className=" lg:text-2xl inline-flex items-center justify-center m-auto py-3 text-base font-medium text-center text-cyan-800 focus:ring-4 focus:ring-gray-100 dark:text-cyan-500 dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-          Remaining tokens:  { remaining_token}
-          </p>
-          <p className=" lg:text-2xl inline-flex items-center justify-center m-auto py-3 text-base font-medium text-center text-cyan-800 focus:ring-4 focus:ring-gray-100 dark:text-cyan-500 dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-          Validity:  { validity} Months
-          </p>
-        </div>
-        <Ratings  rats={rating}/>
-        </div>
-        
-      </div>
-    </div>
   );
 }
 

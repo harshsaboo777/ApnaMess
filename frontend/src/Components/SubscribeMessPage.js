@@ -39,8 +39,8 @@ function SubscribeMessPage(props) {
   return (
     <div className='bg-cyan-600'>
     <MessHeading/>    
-    <p class="mt-8 text-lg font-bold text-cyan-100 lg:text-5xl sm:px-16 lg:px-48 mx-auto max-w-screen-xl text-center">
-          {name}
+    <p class="mt-8 text-lg font-bold text-cyan-100 lg:text-5xl sm:px-16 lg:px-48 mx-auto max-w-screen-xl text-center fontkanit">
+          Subscribe {name}
     </p>
 <div class='flex pt-[30px] px-[40px]'>
    <div class="min-w-full">

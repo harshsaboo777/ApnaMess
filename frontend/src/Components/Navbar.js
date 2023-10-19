@@ -2,19 +2,42 @@
 import Cookies from "universal-cookie";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FiLogOut } from 'react-icons/fi';
+import ContactUs from "./ContactUs";
+import axios from "axios";
 
 function Navbar() {
-
+  
+  // console.log(profile);
   const cookies = new Cookies();
   const User = cookies.get("User");
   const navigate = useNavigate();
+  const [profile,Update_profile] = useState([]);
+
+
+  const fetch_profile = async (e) => {
+    await axios
+      .post("http://localhost:5000/Customer/fetch_profile/",{
+        "User_id" :User.User_id,
+      })
+      .then((res) => {
+        Update_profile(res.data);
+      });
+  };
 
   useEffect(() => {
     if (!cookies.get("User")) {
       console.log("User");
       navigate("/login");
     }
+    console.log("cookies");
+    
   });
+
+  useEffect(()=>{
+    fetch_profile();
+    console.log(profile);
+  },[]);
 
   const Logout = () => {
     cookies.remove("User");
@@ -42,11 +65,16 @@ function Navbar() {
     navigate("/profile");
   }
 
+  const ContactUs = ()=>
+  {
+    navigate("/ContactUs");
+  }
+
   return (
     <div>
       <div class="flex flex-wrap place-items-center">
         <section class="relative mx-auto">
-          <nav class="flex justify-between bg-cyan-800 text-white w-screen">
+          <nav class="flex justify-between bg-cyan-700 text-white w-screen">
             <div class="px-5 xl:px-12 py-6 flex w-full items-center">
               {/* <!-- Nav Links --> */}
               <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-10">
@@ -61,15 +89,11 @@ function Navbar() {
                   </button>
                 </li>
                 <li>
-                  <button class="hover:text-gray-200">
+                  <button class="hover:text-gray-200" onClick={ContactUs}>
                     Contact Us
                   </button>
                 </li>
-                <li>
-                  <button class="hover:text-gray-200" onClick={Logout}>
-                    Logout
-                  </button>
-                </li>
+                
               </ul>
               {/* <!-- Header Icons --> */}
               <div class="hidden xl:flex items-center space-x-5 items-center">
@@ -112,6 +136,8 @@ function Navbar() {
                     />
                   </svg>
                 </button>
+                <p className="text-white poppins hidden md:block lg:block">{profile.fname}</p>
+                <FiLogOut className="cursor-pointer w-6 h-6 text-white" onClick={Logout} />
               </div>
             </div>
             {/* <!-- Responsive navbar --> */}

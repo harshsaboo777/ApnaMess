@@ -12,6 +12,7 @@ export default function MessOwnersSubcribers() {
   const User_id = cookies.get("User").User_id;
 
   const fetch_mess_id = async (e) => {
+    console.log("messssss"+User_id);
     await 
     axios
       .post("http://localhost:5000/Mess_owner/fetch_mess_id/",
@@ -20,7 +21,7 @@ export default function MessOwnersSubcribers() {
       })
       .then((res) => {
         update_Mess_id(res.data.mess_id);
-        console.log(res.data.mess_id);
+        
       });
   };
 

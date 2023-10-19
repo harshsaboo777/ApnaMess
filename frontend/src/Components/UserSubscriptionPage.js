@@ -7,33 +7,6 @@ import Cookies from "universal-cookie";
 
 function UserSubscriptionPage() {
 
-    // const tiffin = [
-    //     {
-    //       name: "Pradeep Bhojnalaya",
-    //       description:
-    //         "Meal includes rice, dal, vegetables, roti, papad, dahi (yogurt), small amounts of chutney or pickle, and a sweet dish.",
-    //       price: 3500,
-    //       daily_items: 2,
-    //       rating: 3,
-    //     },
-    //     {
-    //       name: "Swaad Maharaja",
-    //       description:
-    //         "Meal includes chicken biryani, boiled eggs, vegetables, roti, papad, dahi (yogurt), small amounts of chutney or pickle, and a sweet dish.",
-    //       daily_items: 1,
-    //       price: 4200,
-    //       rating: 5,
-    //     },
-    //     {
-    //       name: "Healthy Plate",
-    //       description:
-    //         "Meal includes Khichdi, kadi, papad, raaita along with some potato chips",
-    //       daily_items: 3,
-    //       price: 3150,
-    //       rating: 4,
-    //     },
-    //   ];
-
       const cookies = new Cookies();
       const [subscribed_mess, set_subscribed_mess] = useState([]);
 
@@ -57,18 +30,27 @@ function UserSubscriptionPage() {
         },[]);
 
   return (
-    <div className="bg-cyan-700">
+    <div className="bg-cyan-600">
       <MessHeading />
-      {subscribed_mess.map((ele, index) => (
-        <ItemCard2
-          name={ele.mess_name}
-          rating={5}
-          daily_tokens={ele.daily_tokens}
-          remaining_token={ele.remaining_token}
-          mess_id={ele.mess_id}
-          validity={ele.subscription_validity}
-        />
-      ))}
+      <section className="my-3 max-w-screen-xl mx-auto px-6">
+            <div className="flex items-center justify-center space-x-6">
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
+                {subscribed_mess.map(ele => (
+                    <ItemCard2
+                    
+                    image={"https://pluspng.com/img-png/veg-thali-png-exotic-tastes-of-india-from-thali-to-tandoori-484.png"}
+                    name={ele.mess_name}
+                    rating={5}
+                    daily_tokens={ele.daily_tokens}
+                    status={ele.status}
+                    remaining_token={ele.remaining_token}
+                    mess_id={ele.mess_id}
+                    validity={ele.subscription_validity}
+                    />
+                ))}
+            </div>
+        </section>
       <Footer />
     </div>
   )

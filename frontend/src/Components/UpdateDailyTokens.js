@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineMinus , AiOutlinePlus} from 'react-icons/ai';
 import {
   Button,
   Dialog,
@@ -38,7 +39,7 @@ export default function UpdateDailyTokens(props) {
           "Daily_tokens":Tokens
         })
         .then((res) => {
-          alert("Successfully Updated Daily Tokens!");
+          // alert("Successfully Updated Daily Tokens!");
           window.location.reload(); 
         })
         .catch((err) => {
@@ -50,11 +51,10 @@ export default function UpdateDailyTokens(props) {
   return (
     <>
       <Button
-      className="ml-3 text-xl inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray rounded-lg bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-cyan-900"
+      className="ml-3 text-xl inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray rounded-lg bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-cyan-900 font-bold"
       onClick={handleOpen}>Update Daily Tokens</Button>
       <Dialog open={open} handler={handleOpen}>
-        <div className="bg-cyan-100 flex items-center justify-between">
-          <DialogHeader>Update Daily Tokens</DialogHeader>
+        {/* <div className="bg-cyan-100 flex items-center justify-between">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -68,21 +68,26 @@ export default function UpdateDailyTokens(props) {
               clipRule="evenodd"
             />
           </svg>
-        </div>
-        <DialogBody divider className="bg-cyan-50">
-          <div className="bg-cyan-100 grid gap-6">
-            <Input label="Enter Daily Tokens" type="number"
-            
-                name="Tokens"
-                value={Tokens}
-                onChange={handleChange}
-                // required
-            />
+        </div> */}
+        <div className="flex px-10 py-2 space-x-3 ">
+                <AiOutlineMinus
+                    onClick={() => {
+                        Tokens === 0 ? UpdateTokens(0) : UpdateTokens(Tokens - 1);
 
-          </div>
-        </DialogBody>
+                    }}
+                    className="bg-cyan-500 text-2xl bg-primary w-10 h-10 rounded-full text-white hover:scale-105 transform transition duration-500 cursor-pointer p-1" />
+                <span className="text-3xl text-gray-700 poppins select-none">{Tokens}</span>
+                <AiOutlinePlus
+                    onClick={() => {
+                      Tokens===10? 
+                      UpdateTokens(10):
+                      UpdateTokens(Tokens + 1);
+
+                    }}
+                    className="bg-cyan-500 text-2xl bg-primary w-10 h-10 rounded-full text-white hover:scale-105 transform transition duration-500 cursor-pointer p-1" /> 
+            </div>
         <DialogFooter className="bg-cyan-100 space-x-2">
-          <Button variant="outlined" color="red" onClick={handleOpen}>
+          <Button variant="gradient" color="red" onClick={handleOpen}>
             close
           </Button>
           <Button variant="gradient" color="green" onClick={handleSubmit}>
