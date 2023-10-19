@@ -20,7 +20,7 @@ export default function MessOwnerDeductTokens(props) {
   const handleSubmit = (props)=>{
 
     axios
-        .post("http://localhost:5000/Mess_owner/Deduct_tokens",
+        .post("https://apna-mess-server.onrender.com/Mess_owner/Deduct_tokens",
         {
           "Mess_id": mess_id,
         })

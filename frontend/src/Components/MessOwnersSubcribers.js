@@ -15,7 +15,7 @@ export default function MessOwnersSubcribers() {
     console.log("messssss"+User_id);
     await 
     axios
-      .post("http://localhost:5000/Mess_owner/fetch_mess_id/",
+      .post("https://apna-mess-server.onrender.com/Mess_owner/fetch_mess_id/",
       {
         "User_id":User_id
       })
@@ -28,7 +28,7 @@ export default function MessOwnersSubcribers() {
   const fetch_mess_users = async (e) => {
     await 
     axios
-      .post("http://localhost:5000/Mess_owner/View_mess_users/",
+      .post("https://apna-mess-server.onrender.com/Mess_owner/View_mess_users/",
       {
         "Mess_id":Mess_id
       })
@@ -40,7 +40,7 @@ export default function MessOwnersSubcribers() {
   const fetch_total_tokens = async (e) => {
     await 
     axios
-      .post("http://localhost:5000/Mess_owner/fetch_total_tokens/",
+      .post("https://apna-mess-server.onrender.com/Mess_owner/fetch_total_tokens/",
       {
         "Mess_id":Mess_id
       })

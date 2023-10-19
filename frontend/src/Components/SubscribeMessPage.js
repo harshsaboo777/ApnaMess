@@ -19,7 +19,7 @@ function SubscribeMessPage(props) {
         const user_id = cookies.get("User").User_id;
 
         await axios
-            .post("http://localhost:5000/Customer/Subscribe_mess", 
+            .post("https://apna-mess-server.onrender.com/Customer/Subscribe_mess", 
             {
                 "customer_id":user_id, 
                 "Mess_id":mess_id, 
