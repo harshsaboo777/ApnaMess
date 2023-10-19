@@ -14,7 +14,7 @@ function UserSubscriptionPage() {
 
           const User_id = cookies.get("User").User_id;
           await axios
-            .post("http://localhost:5000/Customer/View_subscribed_mess/",
+            .post("https://apna-mess-server.onrender.com/Customer/View_subscribed_mess/",
             {
               "customer_id": User_id
             })

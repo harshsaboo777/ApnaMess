@@ -11,7 +11,7 @@ function MessTiffins() {
 
   const fetchMess = async (e) => {
     await axios
-      .post("http://localhost:5000/Customer/View_mess/")
+      .post("https://apna-mess-server.onrender.com/Customer/View_mess/")
       .then((res) => {
         set_tiffin(res.data);
       });

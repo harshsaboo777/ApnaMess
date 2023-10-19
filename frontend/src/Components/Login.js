@@ -32,7 +32,7 @@ const Login = () => {
     if (user.Email !== "" && user.Password !== "" && user.User_type !== "") {
       e.preventDefault();
       await axios
-        .post("http://localhost:5000/auth/login", user)
+        .post("https://apna-mess-server.onrender.com/auth/login", user)
         .then((res) => {
           alert("You are now Logged in.");
           user.User_id = res.data.user_id;

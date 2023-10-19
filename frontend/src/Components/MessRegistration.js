@@ -34,7 +34,7 @@ const MessRegistration = () => {
       mess.mess_owner_id=user_id;
       e.preventDefault();
       axios
-        .post("http://localhost:5000/Mess_owner/Mess_registration",mess)
+        .post("https://apna-mess-server.onrender.com/Mess_owner/Mess_registration",mess)
         .then((res) => {
           alert(res.data);
           navigate("/login");
