@@ -41,12 +41,12 @@ const SignUp = () => {
       user.Password !== ""&& 
       user.User_type !== ""
     ) {
-      // console.log(user);
+       console.log(user);
       e.preventDefault();
       axios
         .post("https://apna-mess-server.onrender.com/auth/signUp", user)
         .then((res) => {
-          // console.log(res.data);
+           console.log(res.data);
           alert(res.data);
 
           if(user.User_type==3)
