@@ -8,6 +8,7 @@ export default function MessOwnersSubcribers() {
   const [mess_users, update_mess_users] = useState([]);
   const [total_tokens,set_total_tokens] = useState(0);
   const [Mess_id,update_Mess_id] = useState(0);
+  const [trigger,update_trigger]=useState(0);
   const cookies = new Cookies();
   const User_id = cookies.get("User").User_id;
 
@@ -57,7 +58,7 @@ export default function MessOwnersSubcribers() {
   useEffect(()=>{
     fetch_mess_users();
     fetch_total_tokens();
-  },[Mess_id]);
+  },[Mess_id,trigger]);
 
 
   return (
@@ -133,7 +134,8 @@ export default function MessOwnersSubcribers() {
             </div>
           </div>
         </div>
-        <MessOwnerDeductTokens total_tokens={total_tokens} mess_id={1}/>
+        <MessOwnerDeductTokens total_tokens={total_tokens} mess_id={Mess_id} trigger={trigger} update_trigger={update_trigger}/>
+
       </div>
 
       <p class="mt-5">

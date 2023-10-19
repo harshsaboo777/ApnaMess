@@ -9,6 +9,7 @@ function UserSubscriptionPage() {
 
       const cookies = new Cookies();
       const [subscribed_mess, set_subscribed_mess] = useState([]);
+      const [trigger,setTrigger]  = useState(true)
 
         const fetch = async (e) => {
 
@@ -27,7 +28,7 @@ function UserSubscriptionPage() {
         useEffect(() => {
           fetch();
           console.log("call")
-        },[]);
+        },[trigger]);
 
   return (
     <div className="bg-cyan-600">
@@ -45,8 +46,10 @@ function UserSubscriptionPage() {
                     daily_tokens={ele.daily_tokens}
                     status={ele.status}
                     remaining_token={ele.remaining_token}
-                    mess_id={ele.mess_id}
+                    mess_id={ele.mess_id} 
                     validity={ele.subscription_validity}
+                    setTrigger = {setTrigger}
+                    trigger={trigger}
                     />
                 ))}
             </div>

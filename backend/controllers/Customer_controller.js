@@ -69,7 +69,7 @@ export const View_mess = async (req, res) => {
   export const Change_daily_tokens = async (req, res) => {
     const { customer_id,Mess_id,Daily_tokens} = req.body;
     let exists;
-
+console.log("loda");
     try
     {
       exists = await client.query("Select * from Subscription where customer_id=$1 and Mess_id=$2",
@@ -79,6 +79,7 @@ export const View_mess = async (req, res) => {
       // console.log(exists.rows[0].remaining_token);
       if(exists.rows[0].remaining_token < Daily_tokens)
       {
+        
         res.status(400).send("Inadequate amount of Tokens left")
       }
       else
