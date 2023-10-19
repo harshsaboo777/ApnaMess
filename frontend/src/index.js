@@ -9,7 +9,7 @@ import MessRegistration from './Components/MessRegistration';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-     <App /> 
+     <App className="fontkanit"/> 
     {/* <MessOwnerDeductTokens/> */}
   </React.StrictMode>
 );

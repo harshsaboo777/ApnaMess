@@ -26,17 +26,28 @@ function MessTiffins() {
   return (
     <div className="bg-cyan-600">
       <MessHeading />
-      {tiffin.map((ele, index) => (
-        <ItemCard
+      <section className="my-3 max-w-screen-xl mx-auto px-6">
+            {/* food Menu tab  */}
+            <div className="flex items-center justify-center space-x-6">
+            </div>
+
+            {/* all foods  */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
+                {tiffin.map(ele => (
+                    <ItemCard
+                    
           mess_id={ele.mess_id}
           name={ele.mess_name}
           description={ele.tiffin_details}
           image={"https://pluspng.com/img-png/veg-thali-png-exotic-tastes-of-india-from-thali-to-tandoori-484.png"}
           price={ele.subscription_price}
           rating={ele.rating}
-        />
-      ))}
+                    />
+                ))}
+            </div>
+        </section>
       <Footer />
+      
     </div>
   );
 }

@@ -48,7 +48,7 @@ export const View_mess_users = async (req, res) => {
       let newMess;
       try {
         newMess = await client.query(
-          "INSERT INTO Mess(mess_name,mess_address,phone_num,tiffin_details, subscription_price,mess_owner_id) VALUES ($1,$2,$3,$4,$5,$6);",
+          "INSERT INTO Mess(mess_name,mess_address,phone_num,tiffin_details, subscription_price,mess_owner_id,status) VALUES ($1,$2,$3,$4,$5,$6,1);",
           [Messname, Messaddress, Messcontact, Fooddetails, Monthlyprice, mess_owner_id]
         );
         res.status(200).send("Mess has been Registered");
@@ -71,3 +71,30 @@ export const View_mess_users = async (req, res) => {
     console.log(exists.rows);
     res.status(200).send(exists.rows[0]);
   };
+
+  export const toggle_status = async (req, res) => {
+
+    const {Mess_id} = req.body;
+    let exists;
+    try {
+      exists = await client.query("update mess set status=1-status where mess_id=$1;",
+      [Mess_id]);
+    } catch (err) {
+      console.log(err);
+    }
+    res.status(200).send(exists.rows[0]);
+  };
+
+  export const fetch_status = async (req, res) => {
+
+    const {Mess_id} = req.body;
+    let exists;
+    try {
+      exists = await client.query("select status from mess where mess_id=$1",
+      [Mess_id]);
+    } catch (err) {
+      console.log(err);
+    }
+    res.status(200).send(exists.rows[0]);
+  };
+

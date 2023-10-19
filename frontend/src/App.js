@@ -8,6 +8,7 @@ import Profile from "./Components/Profile";
 import UserSubscriptionPage from "./Components/UserSubscriptionPage";
 import SubscribeMessPage from "./Components/SubscribeMessPage";
 import MessRegistration from "./Components/MessRegistration";
+import ContactUs from './Components/ContactUs';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/SubscribeMessPage" element={<SubscribeMessPage />} />
         <Route path="/tiffin" element={<MessTiffins />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/ContactUs" element={<ContactUs />} />
         <Route path="/mess" element={<MessOwnerDashboard />} />
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/MessRegistration" element={<MessRegistration/>}/>
