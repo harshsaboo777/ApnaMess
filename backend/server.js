@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:5000"],
+    origin: ["https://apna-mess-client.onrender.com", "https://apna-mess-server.onrender.com"],
     methods: ["POST", "PUT", "GET", "DELETE", "SHOW"],
     credentials: [true],
   })
