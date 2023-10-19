@@ -26,7 +26,7 @@ export default function UpdateDailyTokens(props) {
   }
 
   const cookies = new Cookies();
-  const {mess_id} = props;
+  const {mess_id,setTrigger,trigger} = props;
   const User_id = cookies.get("User").User_id;
 
   const handleSubmit = (props)=>{
@@ -39,12 +39,12 @@ export default function UpdateDailyTokens(props) {
           "Daily_tokens":Tokens
         })
         .then((res) => {
-          // alert("Successfully Updated Daily Tokens!");
-          window.location.reload(); 
+          alert("Successfully Updated Daily Tokens!");
+          setTrigger(!trigger);
+          handleOpen()
         })
         .catch((err) => {
           alert("Inadequate amount of Tokens left");
-          window.location.reload(); 
         });
   }
 

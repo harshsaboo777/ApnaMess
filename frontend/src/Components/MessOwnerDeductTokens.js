@@ -13,9 +13,7 @@ import {
 export default function MessOwnerDeductTokens(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
-  const [Tokens,UpdateTokens] = useState(0);
-
-  const {total_tokens,mess_id} = props;
+  const {total_tokens,mess_id,trigger,update_trigger} = props;
 
   const handleSubmit = (props)=>{
 
@@ -26,11 +24,12 @@ export default function MessOwnerDeductTokens(props) {
         })
         .then((res) => {
           alert("Successfully Deducted Tokens!");
-          window.location.reload(); 
+          update_trigger(1-trigger);
+          handleOpen()
         })
         .catch((err) => {
           alert("Unknown Error occured");
-          window.location.reload(); 
+          // window.location.reload(); 
         });
   }
 
