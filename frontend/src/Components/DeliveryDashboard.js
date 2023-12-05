@@ -1,50 +1,34 @@
-/* eslint-disable react/jsx-no-comment-textnodes */
-import { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import MessOwnerDeductTokens from "./MessOwnerDeductTokens";
-import Cookies from "universal-cookie"
+import DeliveryHeading from "./DeliveryHeading";
+import Footer from "./Footer";
+import "../ComponentStyles/messTiffins.css";
+import styles from "../ComponentStyles/SignUp.module.css";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
-export default function MessOwnersSubcribers() {
-  const [mess_users, update_mess_users] = useState([]);
-  const [total_tokens,set_total_tokens] = useState(0);
+function DeliveryDashboard(){
+  let deliver_id = cookies.get("User").User_id;
+  const [code, setcode] = useState(0);
   const [Mess_id,update_Mess_id] = useState(0);
-  const [trigger,update_trigger]=useState(0);
-  const [agent,update_agent]= useState("None");
-
-  const cookies = new Cookies();
-  const User_id = cookies.get("User").User_id;
-
-  const get_agent = async (e) => {
+  const [mess_users, update_mess_users] = useState([]);
   
-    await 
-    axios
-      .post("http://localhost:5000/Mess_owner/get_agent/",
-      {
-        "Mess_id":Mess_id
-      })
-      .then((res) => {
-        update_agent(res.data.fname);
-        
-      });
-  };
-
   const fetch_mess_id = async (e) => {
     await 
     axios
-      .post("http://localhost:5000/Mess_owner/fetch_mess_id/",
+      .post("http://localhost:5000/Delivery_boy/fetch_mess_id/",
       {
-        "User_id":User_id
+        "deliver_id":deliver_id
       })
       .then((res) => {
         update_Mess_id(res.data.mess_id);
-        
       });
   };
 
   const fetch_mess_users = async (e) => {
     await 
     axios
-      .post("http://localhost:5000/Mess_owner/View_mess_users/",
+      .post("http://localhost:5000/Delivery_boy/fetch_mess_users/",
       {
         "Mess_id":Mess_id
       })
@@ -53,61 +37,74 @@ export default function MessOwnersSubcribers() {
       });
   };
 
-  const fetch_total_tokens = async (e) => {
-    await 
-    axios
-      .post("http://localhost:5000/Mess_owner/fetch_total_tokens/",
-      {
-        "Mess_id":Mess_id
-      })
-      .then((res) => {
-        console.log(res.data[0].sum);
-        set_total_tokens(res.data[0].sum);
-      });
-  };
-
-  const delete_agent = async (e) => {
-    await 
-    axios
-      .post("http://localhost:5000/Mess_owner/delete_agent/",
-      {
-        "Mess_id":Mess_id
-      })
-      .then((res) => {
-        alert("Agent Removed!")
-        update_trigger(!trigger);
-      });
-  };
-
-
   useEffect(() => {
     fetch_mess_id();
 	}, []);
 
   useEffect(()=>{
     fetch_mess_users();
-    fetch_total_tokens();
-    get_agent();
-  },[Mess_id,trigger]);
+  },[Mess_id]);
 
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setcode(value
+    );
+  };
+  const handleSubmit = (e) => {
+    if (
+      code !== "" 
+    ) {
+     console.log(deliver_id);
+       e.preventDefault();
+       axios
+         .post("http://localhost:5000/Delivery_boy/check_mess_unique", {deliver_id,code})
+         
+          .then((res) => {
+          alert(res.data);
+      //     navigate("/login");
+      //   })
+        });
+    } else {
+      alert("Invalid Inputs");
+    }
+  }
 
   return (
-    <div class="mx-auto">
+    <div className="bg-gray-500">
+      <DeliveryHeading />
       
-      <div class="flex flex-col">
-        <div class="overflow-x-auto shadow-md sm:-lg">
-          <div class="inline-block min-w-full align-middle">
-            <div class="overflow-hidden ">
-            <div className=" px-10 py-4 space-x-3 ">
-                
-                <span className="text-xl text-gray-800 poppins select-none">Current Delivery Agent : {agent}</span>
-                
-<button class="bg-cyan-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={delete_agent}>
-  Delete Agent
-</button>
-
+      <div className={styles.container}>
+      <div className={styles.loginbox}>
+      <div className={styles.loginemail}>
+      <p className={styles.logintext}>Enter Unique Code</p>
+      <div className={styles.inputgroup}>
+      <div className={styles.inputgroup}>
+              <input
+                type="number"
+                placeholder="Unique code"
+                name="code"
+                value={code}
+                onChange={handleChange}
+                required
+              />
             </div>
-              <table class="min-w-full divide-y divide-cyan-200 table-fixed dark:divide-gray-700">
+            </div>
+            <div className={styles.inputgroup}>
+              <button
+                className={styles.btn}
+                name="submit"
+                onClick={handleSubmit}
+              >
+                Send
+              </button>
+            </div>
+          </div>
+          </div>
+          
+          </div>
+        
+          <table class="min-w-full divide-y divide-cyan-200 table-fixed dark:divide-gray-700">
                 <thead class="bg-cyan-100 dark:bg-cyan-700">
                   <tr>
                     <th scope="col" class="p-4">
@@ -170,16 +167,10 @@ export default function MessOwnersSubcribers() {
                   ))}
                 </tbody>
               </table>
-            </div>
-          </div>
-        </div>
-        <MessOwnerDeductTokens total_tokens={total_tokens} mess_id={Mess_id} trigger={trigger} update_trigger={update_trigger}/>
-
-      </div>
-
-      <p class="mt-5">
-        <a class="text-blue-600 hover:underline" href="#" target="_blank"></a>.
-      </p>
+       <Footer /> 
+       
     </div>
   );
 }
+
+export default DeliveryDashboard;

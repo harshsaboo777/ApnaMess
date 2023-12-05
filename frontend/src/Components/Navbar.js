@@ -17,7 +17,7 @@ function Navbar() {
 
   const fetch_profile = async (e) => {
     await axios
-      .post("https://apna-mess-server.onrender.com/Customer/fetch_profile/",{
+      .post("http://localhost:5000/Customer/fetch_profile/",{
         "User_id" :User.User_id,
       })
       .then((res) => {

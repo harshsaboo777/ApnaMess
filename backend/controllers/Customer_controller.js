@@ -69,7 +69,6 @@ export const View_mess = async (req, res) => {
   export const Change_daily_tokens = async (req, res) => {
     const { customer_id,Mess_id,Daily_tokens} = req.body;
     let exists;
-console.log("loda");
     try
     {
       exists = await client.query("Select * from Subscription where customer_id=$1 and Mess_id=$2",
@@ -187,6 +186,27 @@ console.log("loda");
     res.status(200).send(exists.rows);
   }
 
+  export const Refund = async (req, res) => {
+    const { customer_id,Mess_id} = req.body;
+    console.log(Mess_id+"djjhdojnd");
+    let exists;
+    try
+    {
+      await client.query("delete from Subscription where customer_id=$1 and Mess_id=$2",
+      [
+        customer_id,Mess_id
+      ])
+      // console.log(exists.rows[0].remaining_token);
+
+    }catch(err)
+    {
+      console.log(err);
+    }
+    res.status(200).send("Successfully Refunded the amount.")
+    
+  };
+
+
   export const Make_payment = async(req,res) => {
     
   }
@@ -194,3 +214,4 @@ console.log("loda");
   // daily tokens remaining tokens validity in subscription 
   // seperate rating table user id mess id rating 
    
+

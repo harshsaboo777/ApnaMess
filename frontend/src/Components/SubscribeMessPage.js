@@ -17,13 +17,18 @@ function SubscribeMessPage(props) {
     const subscribe = async(e) =>{
         const {name} = e.target;
         const user_id = cookies.get("User").User_id;
+        let rms = 0;
+
+        if(name===1){rms=30;}
+        else if(name===3){rms=95;}
+        else{rms=200;}
 
         await axios
-            .post("https://apna-mess-server.onrender.com/Customer/Subscribe_mess", 
+            .post("http://localhost:5000/Customer/Subscribe_mess", 
             {
                 "customer_id":user_id, 
                 "Mess_id":mess_id, 
-                "Remaining_token": name*30,
+                "Remaining_token": rms,
                 "subscription_validity": name
             })
             .then((res) => {
@@ -57,9 +62,9 @@ function SubscribeMessPage(props) {
                     </div>
 
                     <div>
-                        <p class="text-[#00153B] text-[19px] leading-[24px] font-bold">
+                        {/* <p class="text-[#00153B] text-[19px] leading-[24px] font-bold">
                             1 Month
-                        </p>
+                        </p> */}
                         <p class="text-[#00153B] text-[50px] leading-[63px] font-bold">
                             {price} INR
                         </p>
@@ -108,9 +113,9 @@ function SubscribeMessPage(props) {
                     </div>
 
                     <div>
-                        <p class="text-[#00153B] text-[19px] leading-[24px] font-bold">
+                        {/* <p class="text-[#00153B] text-[19px] leading-[24px] font-bold">
                         3 Month
-                        </p>
+                        </p> */}
                         <p class="text-[#00153B] text-[50px] leading-[63px] font-bold">
                         {3*price-500} INR
                         </p>
@@ -159,9 +164,9 @@ function SubscribeMessPage(props) {
                     </div>
 
                     <div>
-                        <p class="text-[#00153B] text-[19px] leading-[24px] font-bold">
+                        {/* <p class="text-[#00153B] text-[19px] leading-[24px] font-bold">
                         6 Month
-                        </p>
+                        </p> */}
                         <p class="text-[#00153B] text-[50px] leading-[63px] font-bold">
                         {6*price-1500} INR
                         </p>

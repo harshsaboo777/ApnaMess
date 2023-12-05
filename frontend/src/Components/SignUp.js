@@ -44,7 +44,7 @@ const SignUp = () => {
        console.log(user);
       e.preventDefault();
       axios
-        .post("https://apna-mess-server.onrender.com/auth/signUp", user)
+        .post("http://localhost:5000/auth/signUp", user)
         .then((res) => {
            console.log(res.data);
           alert(res.data);

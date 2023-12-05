@@ -32,7 +32,7 @@ export default function UpdateDailyTokens(props) {
   const handleSubmit = (props)=>{
 
     axios
-        .post("https://apna-mess-server.onrender.com/Customer/Change_daily_tokens",
+        .post("http://localhost:5000/Customer/Change_daily_tokens",
         {
           "customer_id" : User_id,
           "Mess_id": mess_id,
