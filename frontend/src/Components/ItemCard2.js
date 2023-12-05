@@ -3,6 +3,7 @@ import "../ComponentStyles/itemCard.css";
 import "../ComponentStyles/itemCard2.css"
 import Ratings from "./Ratings"
 import UpdateDailyTokens from "./UpdateDailyTokens";
+import Refund from "./Refund";
 
 function ItemCard2(props) {
   const { name, rating, daily_tokens,remaining_token,mess_id,validity,status,image,setTrigger,trigger} = props;
@@ -16,10 +17,10 @@ function ItemCard2(props) {
                 <Ratings  rats={rating}/>
                 <p className="text-gray-500 poppins text-sm text-center">Remaining tokens: {remaining_token}</p>
                 <h2 className="text-gray-900 poppins text-xl ">Daily Tokens : {daily_tokens}</h2>
-
                 <UpdateDailyTokens mess_id={mess_id} setTrigger={setTrigger} trigger={trigger}/>
-                <a
-            className="ml-3 text-xl inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray rounded-lg bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-cyan-900">Contact  </a>
+                <Refund mess_id={mess_id} setTrigger2={setTrigger} trigger2={trigger}/>
+                {/* <a
+            className="ml-3 text-xl inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray rounded-lg bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-cyan-900">Contact  </a> */}
             </div>
 
         </div>

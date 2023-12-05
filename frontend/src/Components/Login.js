@@ -17,7 +17,7 @@ const Login = () => {
       let type = cookies.get("User").User_type;
 
       if(type === '1'){Navigate("/tiffin");}
-      else if(type ==='2'){}
+      else if(type ==='2'){Navigate("/delivery");}
       else if(type === '3'){Navigate("/mess");}
     }
   });
@@ -32,14 +32,14 @@ const Login = () => {
     if (user.Email !== "" && user.Password !== "" && user.User_type !== "") {
       e.preventDefault();
       await axios
-        .post("https://apna-mess-server.onrender.com/auth/login", user)
+        .post("http://localhost:5000/auth/login", user)
         .then((res) => {
           alert("You are now Logged in.");
           user.User_id = res.data.user_id;
           console.log(user);
           cookies.set("User", user, { path: "/" });
           if(user.User_type === '1'){Navigate("/tiffin");}
-          else if(user.User_type ==='2'){}
+          else if(user.User_type ==='2'){Navigate("/delivery");}
           else if(user.User_type ==='3'){Navigate("/mess");}
         })
         .catch((err) => {

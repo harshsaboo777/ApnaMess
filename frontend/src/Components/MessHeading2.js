@@ -16,7 +16,7 @@ function MessHeading2() {
   const fetch_status = async (e) => {
     await 
     axios
-      .post("https://apna-mess-server.onrender.com/Mess_owner/fetch_status/",
+      .post("http://localhost:5000/Mess_owner/fetch_status/",
       {
         "Mess_id":Mess_id
       })
@@ -28,7 +28,7 @@ function MessHeading2() {
   const toggle_status = async(e)=>{
     await 
     axios
-      .post("https://apna-mess-server.onrender.com/Mess_owner/toggle_status/",
+      .post("http://localhost:5000/Mess_owner/toggle_status/",
       {
         "Mess_id":Mess_id
       })
@@ -41,13 +41,25 @@ function MessHeading2() {
   const fetch_mess_id = async (e) => {
     await 
     axios
-      .post("https://apna-mess-server.onrender.com/Mess_owner/fetch_mess_id/",
+      .post("http://localhost:5000/Mess_owner/fetch_mess_id/",
       {
         "User_id":User_id
       })
       .then((res) => {
         update_Mess_id(res.data.mess_id);
         console.log(res.data.mess_id);
+      });
+  };
+
+  const generate_code = async (e) => {
+    await 
+    axios
+      .post("http://localhost:5000/Mess_owner/generate_code/",
+      {
+        "Mess_id":Mess_id
+      })
+      .then((res) => {
+        alert("Here is your one time code for adding a delivery agent. Kindly share it with only your delivery agent.   Code: "+res.data);
       });
   };
 
@@ -69,8 +81,10 @@ function MessHeading2() {
         <p class="mb-8 text-lg font-normal text-gray-300 lg:text-3xl sm:px-16 lg:px-48">
           We Provide you the nearest healthy food at cheapest cost!
         </p>
+        
         <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4"></div>
         <button className={(status==0?"itemcard2_background":"itemcard2_background2")+" lg:text-2xl inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-cyan-900 rounded-lg focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"} onClick={toggle_status}>{status==0?"Open Mess":"Close Mess"}</button>
+        <button className={"lg:text-xl inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white rounded-lg focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"} onClick={generate_code}>{"#Generate Code"}</button>
       </div>
     </section>
   );
